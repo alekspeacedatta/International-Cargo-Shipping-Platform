@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useLogin } from "../customHooks/useLogin"; // your custom hook
+import { useLogin } from "../customHooks/useLogin"; 
+import Button from "./commons/Button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,14 +10,15 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loginUser({ email, password });
+    
   };
 
   return (
     <div className="login auth">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <section className="login-sec">
-          <label>Email</label>
+        <section className="login-sec sec">
+          <label>Email:</label>
           <input
             type="text"
             placeholder="Enter your Email"
@@ -24,8 +26,8 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </section>
-        <section className="login-sec">
-          <label>Password</label>
+        <section className="login-sec sec">
+          <label>Password:</label>
           <input
             type="password"
             placeholder="Enter your Password"
@@ -33,7 +35,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </section>
-        <button type="submit">Login</button>
+        <Button submit={true} buttonText="Login"></Button>
+        
       </form>
     </div>
   );

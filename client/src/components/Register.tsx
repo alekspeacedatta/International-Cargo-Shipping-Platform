@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRegister } from "../customHooks/useRegister";
 import { type User } from "../types/types";
+import Button from "./commons/Button";
 
 const initialState: User = {
   fullName: "",
@@ -22,7 +23,7 @@ const Register = () => {
 
     register(registerData, {
       onSuccess: () => {
-        setRegisterData(initialState); // reset fields after successful registration
+        setRegisterData(initialState);
       },
     });
   };
@@ -31,8 +32,8 @@ const Register = () => {
     <div className="register auth">
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
-        <section className="sec">
-          <label>Fullname</label>
+        <section className="register-sec sec">
+          <label>Fullname:</label>
           <input
             type="text"
             placeholder="Enter your fullname"
@@ -43,8 +44,8 @@ const Register = () => {
           />
         </section>
 
-        <section className="sec">
-          <label>Email</label>
+        <section className="register-sec sec">
+          <label>Email:</label>
           <input
             type="text"
             placeholder="Enter your email"
@@ -56,11 +57,12 @@ const Register = () => {
         </section>
 
         <section className="address">
-          <label>Address</label>
+          <label>Address:</label>
           <section className="address-info">
             <section className="address-info-details">
               <label>Country</label>
               <input
+                placeholder="enter your country"
                 type="text"
                 value={registerData.addresses[0].country}
                 onChange={(e) =>
@@ -76,6 +78,7 @@ const Register = () => {
               <input
                 type="text"
                 value={registerData.addresses[0].city}
+                placeholder="enter your city"
                 onChange={(e) =>
                   setRegisterData({
                     ...registerData,
@@ -89,6 +92,7 @@ const Register = () => {
               <input
                 type="text"
                 value={registerData.addresses[0].line1}
+                placeholder="enter line1"
                 onChange={(e) =>
                   setRegisterData({
                     ...registerData,
@@ -102,6 +106,7 @@ const Register = () => {
               <input
                 type="text"
                 value={registerData.addresses[0].postalCode}
+                placeholder="enter postal code"
                 onChange={(e) =>
                   setRegisterData({
                     ...registerData,
@@ -113,8 +118,8 @@ const Register = () => {
           </section>
         </section>
 
-        <section className="sec">
-          <label>Password</label>
+        <section className="register-sec sec">
+          <label>Password:</label>
           <input
             type="password"
             placeholder="Enter your password"
@@ -125,8 +130,8 @@ const Register = () => {
           />
         </section>
 
-        <section className="sec">
-          <label>Phone</label>
+        <section className="register-sec sec">
+          <label>Phone:</label>
           <input
             type="text"
             placeholder="Enter your phone"
@@ -137,7 +142,7 @@ const Register = () => {
           />
         </section>
 
-        <button type="submit">Submit</button>
+        <Button buttonText="Submit" submit={true}/>
       </form>
     </div>
   );
