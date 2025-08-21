@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useLogin } from "../customHooks/useLogin"; 
-import Button from "./commons/Button";
+import { Button } from "./commons/Button";
+import { Input } from "./commons/Input";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { mutate: loginUser } = useLogin();
-
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loginUser({ email, password });
-    
+
   };
 
   return (
@@ -19,7 +20,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <section className="login-sec sec">
           <label>Email:</label>
-          <input
+          <Input
             type="text"
             placeholder="Enter your Email"
             value={email}
@@ -28,14 +29,14 @@ const Login = () => {
         </section>
         <section className="login-sec sec">
           <label>Password:</label>
-          <input
+          <Input
             type="password"
             placeholder="Enter your Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </section>
-        <Button submit={true} buttonText="Login"></Button>
+        <Button type="submit">Submit</Button>
         
       </form>
     </div>

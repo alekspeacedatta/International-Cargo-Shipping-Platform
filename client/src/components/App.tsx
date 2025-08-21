@@ -4,7 +4,9 @@ import '../index.css'
 import Register from "./Register"
 import Login from "./Login"
 import Profile from "./Profile"
+import { useAuthStore } from "../stores/useAuthStore"
 const App = () => {
+    const userID = useAuthStore(state => state.user?._id);
   return (
     <>
         <Header></Header>
@@ -21,10 +23,11 @@ const App = () => {
                         <Login/>
                     </div>
                 </> }/>
-            <Route path="/user" element={
+            <Route path={"/user/"+userID} element={
                 <>
                     <Profile/>
                 </> }/>
+            <Route path="/user" element={<><h2>user is not logined</h2></>} />
         </Routes>
     </>
   )

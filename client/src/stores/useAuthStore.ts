@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
 interface AuthState {
   user: any | null;
   token: string | null;
-  setUser: (user: any, token: string) => void;
+  setUser: (user: any) => void;
   logout: () => void;
+  edit: (user: any) => void
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -13,11 +13,15 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: null,
-      setUser: (user, token) => {
-        set({ user, token });
+      setUser: (user) => {
+        set({ user });
       },
       logout: () => {
-        set({ user: null, token: null });
+        set({ user: null});
+        localStorage.clear()
+      },
+      edit: (data) => {
+        set({ user: data})
       },
     }),
     {

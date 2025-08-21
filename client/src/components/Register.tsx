@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useRegister } from "../customHooks/useRegister";
 import { type User } from "../types/types";
-import Button from "./commons/Button";
+import { Button } from "./commons/Button";
+import { Input } from "./commons/Input";
 
 const initialState: User = {
   fullName: "",
@@ -34,7 +35,7 @@ const Register = () => {
       <form onSubmit={handleRegister}>
         <section className="register-sec sec">
           <label>Fullname:</label>
-          <input
+          <Input
             type="text"
             placeholder="Enter your fullname"
             value={registerData.fullName}
@@ -46,7 +47,7 @@ const Register = () => {
 
         <section className="register-sec sec">
           <label>Email:</label>
-          <input
+          <Input
             type="text"
             placeholder="Enter your email"
             value={registerData.email}
@@ -61,7 +62,7 @@ const Register = () => {
           <section className="address-info">
             <section className="address-info-details">
               <label>Country</label>
-              <input
+              <Input
                 placeholder="enter your country"
                 type="text"
                 value={registerData.addresses[0].country}
@@ -75,7 +76,7 @@ const Register = () => {
             </section>
             <section className="address-info-details">
               <label>City</label>
-              <input
+              <Input
                 type="text"
                 value={registerData.addresses[0].city}
                 placeholder="enter your city"
@@ -89,7 +90,7 @@ const Register = () => {
             </section>
             <section className="address-info-details">
               <label>Line 1</label>
-              <input
+              <Input
                 type="text"
                 value={registerData.addresses[0].line1}
                 placeholder="enter line1"
@@ -103,7 +104,7 @@ const Register = () => {
             </section>
             <section className="address-info-details">
               <label>Postal Code</label>
-              <input
+              <Input
                 type="text"
                 value={registerData.addresses[0].postalCode}
                 placeholder="enter postal code"
@@ -120,7 +121,7 @@ const Register = () => {
 
         <section className="register-sec sec">
           <label>Password:</label>
-          <input
+          <Input
             type="password"
             placeholder="Enter your password"
             value={registerData.password}
@@ -132,7 +133,7 @@ const Register = () => {
 
         <section className="register-sec sec">
           <label>Phone:</label>
-          <input
+          <Input
             type="text"
             placeholder="Enter your phone"
             value={registerData.phone}
@@ -142,7 +143,7 @@ const Register = () => {
           />
         </section>
 
-        <Button buttonText="Submit" submit={true}/>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

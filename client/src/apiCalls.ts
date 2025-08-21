@@ -1,4 +1,4 @@
-import { type Address } from "./types/types";
+import { type Address, type User } from "./types/types";
 const BASE_URL = 'http://localhost:5000';
 export const register = async ( fullName: string, email: string, password: string, phone: string, addresses: Address[], role: string) => {
     try {
@@ -39,6 +39,48 @@ export const login = async ( email: string, password: string ) => {
         return data; 
     } catch (error) {
         console.error(error);
-        throw error;
     }
+}
+export const editUser = async (
+  fullName: string, 
+  email: string, 
+  password: string | null,
+  phone: string, 
+  addresses: Address[], 
+  role: string, 
+  id: string
+) => {
+  const token = localStorage.getItem('token');
+  try {
+    const updateData: any = {
+      email: email,
+      fullName: fullName,
+      phone: phone,
+      addresses: addresses,
+      role: role
+    };
+  
+    if (password) {
+      updateData.password = password;
+    }
+    const res = await fetch(`${BASE_URL}/api/user/edit/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateData)
+    });
+    
+    if(!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.message || "Error: Can't Update User Data");
+    }
+    
+    const data = await res.json();
+    return data.user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }

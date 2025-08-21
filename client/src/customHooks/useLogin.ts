@@ -8,7 +8,7 @@ export const useLogin = () => {
     return useMutation({
         mutationFn: ({ email, password }: { email: string, password: string }) => login(email, password),
         onSuccess: (data) => {
-            setUser(data.checkUser, data.token)
+            setUser(data.checkUser)
         },
         onError: (error: any) => {
             console.error("login failed", error.message);
