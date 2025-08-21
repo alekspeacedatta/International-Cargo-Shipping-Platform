@@ -1,4 +1,4 @@
-import { type Address, type User } from "./types/types";
+import { type Address } from "./types/types";
 const BASE_URL = 'http://localhost:5000';
 export const register = async ( fullName: string, email: string, password: string, phone: string, addresses: Address[], role: string) => {
     try {
