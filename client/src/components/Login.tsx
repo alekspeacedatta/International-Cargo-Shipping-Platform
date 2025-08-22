@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { mutate: loginUser } = useLogin();
+  const { mutate: loginUser, isError } = useLogin();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const Login = () => {
   };
   return (
     <div className="login auth">
-      <h2>Login</h2>
+      {!isError ? ( <h2>Login</h2> ) : ( <h2 style={{ color: 'red' }}>Login Failed</h2> )}
       <form onSubmit={handleSubmit}>
         <section className="login-sec sec">
           <label>Email:</label>

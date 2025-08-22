@@ -40,14 +40,7 @@ const Profile = () => {
 
     if(user) return (        
         <>
-            <div className="user-profile">
-                <div className="profile-content">
-                    <div className="sents">
-                        <div className="box">
-                            <h3>glasses</h3>
-                            <p>price 304$</p>
-                        </div>
-                    </div>
+            
                     <form className="profile-info" onSubmit={handleDataUpdate}>
                         <h2>Hello {editedData.fullName}</h2>
                         <section className="profile-info-details">
@@ -131,8 +124,7 @@ const Profile = () => {
                             <Button type="submit">Save Edited</Button>
                         </div>
                     </form>
-                </div>
-            </div>
+                
         </>
     )
     else return <h2>You are not logged in</h2>

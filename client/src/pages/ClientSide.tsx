@@ -3,9 +3,9 @@ import Header from "../components/Header"
 import '../index.css'
 import Register from "../components/Register"
 import Login from "../components/Login"
-import Profile from "../components/Profile"
 import { useAuthStore } from "../stores/useAuthStore"
-const App = () => {
+import Dashboard from "../components/Dashboard"
+const ClientSide = () => {
     const userID = useAuthStore(state => state.user?._id);
   return (
     <>
@@ -25,11 +25,11 @@ const App = () => {
                 </> }/>
             <Route path={"/user/"+userID} element={
                 <>
-                    <Profile/>
+                    <Dashboard/>
                 </> }/>
             <Route path="/user" element={<><h2>user is not logined</h2></>} />
         </Routes>
     </>
   )
 }
-export default App
+export default ClientSide

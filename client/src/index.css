@@ -19,7 +19,7 @@ button:hover{
 header{
   .header-content{
     padding: 10px 0px;
-    max-width: 67vw;
+    max-width: 65vw;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -46,6 +46,9 @@ header{
   gap: 50px;
   .auth{
     margin-top: 65px;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px; 
+    border-radius: 10px;
+    padding: 20px;
     form{
       margin-top: 40px;
       width: 25vw;
@@ -82,20 +85,27 @@ header{
     }
   }
 }
-.user-profile{
-  margin-top: 80px;
-  .profile-content{
-    max-width: 77vw;
-    margin: 0 auto;
+.dashboard{
+  padding-top: 60px;
+  .dashboard-content{
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    .sent{
+    max-width: 85vw;
+    margin: 0 auto;
+    gap: 10px;
+    .parcel-request{
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px; 
+      width: 68%;
+      .parcel-request-content{
+        padding: 20px;
 
+      }
     }
     .profile-info{
       box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px; 
       border-radius: 10px;
+      width: max-content;
       padding: 20px;
       display: flex;
       flex-direction: column;
