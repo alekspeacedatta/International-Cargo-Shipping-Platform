@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom"
-import Header from "./Header"
+import Header from "../components/Header"
 import '../index.css'
-import Register from "./Register"
-import Login from "./Login"
-import Profile from "./Profile"
+import Register from "../components/Register"
+import Login from "../components/Login"
+import Profile from "../components/Profile"
 import { useAuthStore } from "../stores/useAuthStore"
 const App = () => {
     const userID = useAuthStore(state => state.user?._id);

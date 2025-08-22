@@ -40,13 +40,13 @@ router.post('/login/user', async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Incorect email or password' })
         }
         const token = jwt.sign(
-        { id: checkUser._id, email: checkUser.email, fullName: checkUser.fullName },
+        { id: checkUser._id, email: checkUser.email, role: checkUser.role },
         process.env.JWT_SECRET!,
         { expiresIn: '7d' })
         res.status(200).json({
             message: 'Login succesful',
+            token,
             checkUser,
-            token
         })
     } catch (error) {
         console.error(error);

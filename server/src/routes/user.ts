@@ -8,15 +8,16 @@ router.patch('/edit/:id', authenticateJWT, async (req: Request, res: Response) =
     try {
         const { id } = req.params;
         const { fullName, email, phone, addresses, password } = req.body;
-        const updateData: any = {
-            fullName,
-            email,
-            phone,
-            addresses
-        };
-        if (password) {
-            const saltRounds = 10;
-            updateData.password = await bcrypt.hash(password, saltRounds);
+        const updateData: any = {};
+        
+        if (fullName !== undefined) updateData.fullName = fullName;
+        if (email !== undefined) updateData.email = email;
+        if (phone !== undefined) updateData.phone = phone;
+        if (addresses !== undefined) updateData.addresses = addresses;
+
+        if (password && password.trim() !== '') {
+            const rounds = 10;
+            updateData.password = await bcrypt.hash(password, rounds);
         }
         const selectedUser = await UserModel.findByIdAndUpdate(
             id, 
@@ -30,12 +31,9 @@ router.patch('/edit/:id', authenticateJWT, async (req: Request, res: Response) =
             message: 'User updated Successfully', 
             user: selectedUser
         });
-        
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'User updating Error', error })   
     }
 })
-
-
 export default router

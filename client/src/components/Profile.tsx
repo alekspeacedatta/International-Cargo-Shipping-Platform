@@ -9,9 +9,11 @@ import { type Address, type User } from "../types/types";
 const Profile = () => {
     const navigate = useNavigate();
     const user = useAuthStore(state => state.user);
-    const { mutate } = useEditUser();
-    const edit = useAuthStore(state => state.edit);
-    const [editedData, setEditedData] = useState<User>({...user});
+    const { mutate: updateUser  } = useEditUser();
+    const [editedData, setEditedData] = useState<Omit<User, 'password'> & { newPassword?: string }>({
+        ...user,
+        newPassword: ''
+    });
     const logout = useAuthStore(state => state.logout);
 
     useEffect(() => {
@@ -19,22 +21,10 @@ const Profile = () => {
             setEditedData({...user});
         }
     }, [user]);
-    
     const handleLogout = () => {
         logout();   
         navigate('/user')
     }
-    
-    const handleDataUpdate = (e: React.FormEvent) => {
-        e.preventDefault();
-        mutate(editedData, {
-            onSuccess: (data) => {
-                if (data) {
-                    edit(data);
-                }
-            }
-        });
-    };
     const updateAddressField = (index: number, field: keyof Address, value: string) => {
         const newAddresses = [...editedData.addresses];
         newAddresses[index] = {
@@ -43,93 +33,105 @@ const Profile = () => {
         };
         setEditedData({...editedData, addresses: newAddresses});
     };
+    const handleDataUpdate = (e: React.FormEvent) => {
+        e.preventDefault();
+        updateUser(editedData);
+    };
 
     if(user) return (        
         <>
-            <div className="profile">
-                <form className="profile-info" onSubmit={handleDataUpdate}>
-                    <h2>Hello {editedData.fullName}</h2>
-                    <section className="profile-info-details">
-                        <section>
-                            <label htmlFor="">full name:</label>
-                            <Input 
-                                type="text" 
-                                value={editedData.fullName} 
-                                onChange={e => setEditedData({...editedData, fullName: e.target.value})} 
-                            />
-                        </section>
-                        <section>
-                            <label htmlFor="">email:</label>
-                            <Input 
-                                type="text" 
-                                value={editedData.email} 
-                                onChange={e => setEditedData({...editedData, email: e.target.value})} 
-                            />
-                        </section>
-                    </section>
-                    <section className="profile-info-details">
-                        <section>
-                            <label>Phone:</label>
-                            <Input 
-                                type="text" 
-                                value={editedData.phone} 
-                                onChange={e => setEditedData({...editedData, phone: e.target.value})}
-                            />
-                        </section>
-                        <section>
-                            <label>Password</label>
-                            <Input 
-                                type="password" 
-                                value={editedData.password || ''} 
-                                onChange={e => setEditedData({...editedData, password: e.target.value})}
-                                placeholder="Enter new password to change"
-                            />
-                        </section>
-                    </section>
-                    <section className="profile-info-details addresses">
-                        <h3>Addresses:</h3>
-                        {editedData.addresses.map((item: Address, index) => (
-                            <section key={index} className="addresses-info">
-                                <section className="addresses-info-details">
-                                    <section>
-                                        <label htmlFor="">country: </label>
-                                        <Input 
-                                            value={item.country} 
-                                            onChange={e => updateAddressField(index, 'country', e.target.value)}
-                                        />
-                                    </section>
-                                    <section>
-                                        <label htmlFor="">line1: </label>
-                                        <Input 
-                                            value={item.line1} 
-                                            onChange={e => updateAddressField(index, 'line1', e.target.value)}
-                                        />
-                                    </section>
-                                </section>
-                                <section className="addresses-info-details">
-                                    <section>
-                                        <label htmlFor="">city: </label>
-                                        <Input 
-                                            value={item.city} 
-                                            onChange={e => updateAddressField(index, 'city', e.target.value)}
-                                        />
-                                    </section>
-                                    <section>
-                                        <label htmlFor="">postalcode: </label>
-                                        <Input 
-                                            value={item.postalCode} 
-                                            onChange={e => updateAddressField(index, 'postalCode', e.target.value)}
-                                        />
-                                    </section>
-                                </section>
-                            </section>
-                        ))}
-                    </section>
-                    <div className="actions-container">
-                        <Button onClick={handleLogout}>Logout</Button>
-                        <Button type="submit">Save Edited</Button>
+            <div className="user-profile">
+                <div className="profile-content">
+                    <div className="sents">
+                        <div className="box">
+                            <h3>glasses</h3>
+                            <p>price 304$</p>
+                        </div>
                     </div>
-                </form>
+                    <form className="profile-info" onSubmit={handleDataUpdate}>
+                        <h2>Hello {editedData.fullName}</h2>
+                        <section className="profile-info-details">
+                            <section>
+                                <label htmlFor="">full name:</label>
+                                <Input 
+                                    type="text" 
+                                    value={editedData.fullName} 
+                                    onChange={e => setEditedData({...editedData, fullName: e.target.value})} 
+                                />
+                            </section>
+                            <section>
+                                <label htmlFor="">email:</label>
+                                <Input 
+                                    type="text" 
+                                    value={editedData.email} 
+                                    onChange={e => setEditedData({...editedData, email: e.target.value})} 
+                                />
+                            </section>
+                        </section>
+                        <section className="profile-info-details">
+                            <section>
+                                <label>Phone:</label>
+                                <Input 
+                                    type="text" 
+                                    value={editedData.phone} 
+                                    onChange={e => setEditedData({...editedData, phone: e.target.value})}
+                                />
+                            </section>
+                            <section>
+                                <label>Password</label>
+                                <Input 
+                                    type="password" 
+                                    value={editedData.newPassword || ''} 
+                                    onChange={e => setEditedData({...editedData, newPassword: e.target.value})}
+                                    placeholder="Enter new password to change"
+                                />
+                            </section>
+                        </section>
+                        <section className="profile-info-details addresses">
+                            <h3>Addresses:</h3>
+                            {editedData.addresses.map((item: Address, index) => (
+                                <section key={index} className="addresses-info">
+                                    <section className="addresses-info-details">
+                                        <section>
+                                            <label htmlFor="">country: </label>
+                                            <Input 
+                                                value={item.country} 
+                                                onChange={e => updateAddressField(index, 'country', e.target.value)}
+                                            />
+                                        </section>
+                                        <section>
+                                            <label htmlFor="">line1: </label>
+                                            <Input 
+                                                value={item.line1} 
+                                                onChange={e => updateAddressField(index, 'line1', e.target.value)}
+                                            />
+                                        </section>
+                                    </section>
+                                    <section className="addresses-info-details">
+                                        <section>
+                                            <label htmlFor="">city: </label>
+                                            <Input 
+                                                value={item.city} 
+                                                onChange={e => updateAddressField(index, 'city', e.target.value)}
+                                            />
+                                        </section>
+                                        <section>
+                                            <label htmlFor="">postalcode: </label>
+                                            <Input 
+                                                value={item.postalCode} 
+                                                onChange={e => updateAddressField(index, 'postalCode', e.target.value)}
+                                            />
+                                        </section>
+                                    </section>
+                                </section>
+                            ))}
+                        </section>
+                        <div className="actions-container">
+                            <Button onClick={handleLogout}>Logout</Button>
+                            <Button type="submit">Save Edited</Button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )

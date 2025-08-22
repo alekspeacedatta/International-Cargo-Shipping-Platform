@@ -8,18 +8,10 @@ export const useEditUser = () => {
   const user = useAuthStore(state => state.user);
 
   return useMutation({
-    mutationFn: (updateData: User) => {
+   mutationFn: (updateData: Omit<User, 'password'> & { newPassword?: string }) => {
       if (!user) throw new Error("User not authenticated");
       
-      return editUser(
-        updateData.fullName,
-        updateData.email,
-        updateData.password || null,
-        updateData.phone,
-        updateData.addresses,
-        user.role,
-        user._id
-      );
+      return editUser( updateData.fullName, updateData.email, updateData.newPassword, updateData.phone, updateData.addresses, user.role, user._id);
     },
     onSuccess: (data) => {
       if (data) edit(data);

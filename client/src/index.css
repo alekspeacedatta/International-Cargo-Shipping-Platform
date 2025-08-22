@@ -82,58 +82,76 @@ header{
     }
   }
 }
-.profile{
-  .profile-info{
-    max-width: max-content;
-    margin: 100px auto;
+.user-profile{
+  margin-top: 80px;
+  .profile-content{
+    max-width: 77vw;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-    .profile-info-details{
-      display: flex;
-      gap: 5px;
-      section{
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
-      button:hover{
-        transform: translateY(-1px);
-        background-color: var(--buttin-bc-fade);
-        font-size: 13.5px;
-      }
+    align-items: center;
+    justify-content: space-between;
+    .sent{
+
     }
-    .addresses{
+    .profile-info{
+      box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px; 
+      border-radius: 10px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      .addresses-info{
+      gap: 25px;
+      .profile-info-details{
         display: flex;
-        flex-direction: row;
-        .addresses-info-details{
+        gap: 5px;
+        section{
           display: flex;
           flex-direction: column;
+          gap: 5px;
+          input{
+            background-color: #eaeaea;
+            padding: 6px 5px;
+            width: 11vw;
+            border-color: #eaeaea;
+          }
+        }
+        button:hover{
+          transform: translateY(-1px);
+          background-color: var(--buttin-bc-fade);
+          font-size: 13.5px;
         }
       }
-    }
-    .actions-container{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      button:first-child{
-        width: 20%;
-        background-color: #b91c1c;
+      .addresses{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .addresses-info{
+          display: flex;
+          flex-direction: row;
+          .addresses-info-details{
+            display: flex;
+            flex-direction: column;
+          }
+        }
       }
-      button:last-child{
-        width: 78%; 
-      }
-      button:hover{
-        transform: translateY(-1px);
-        background-color: var(--buttin-bc-fade);
-        font-size: 14px;
-      }
-      button:first-child:hover{
-        background-color: var(--logout-button-hover-color);
+      .actions-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        button:first-child{
+          width: 28%;
+          background-color: #b91c1c;
+        }
+        button:last-child{
+          width: 70%; 
+        }
+        button:hover{
+          transform: translateY(-1px);
+          background-color: var(--buttin-bc-fade);
+          font-size: 14px;
+        }
+        button:first-child:hover{
+          background-color: var(--logout-button-hover-color);
+        }
       }
     }
   }
