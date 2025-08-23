@@ -14,7 +14,7 @@ console.log('Environment variables loaded from .env file');
 app.use(cors({origin: '*', credentials: true}))
 app.use(express.json());
 
-app.use('/api/user', userRoutes);
+app.use('/api/client', userRoutes);
 app.use('/api/auth', authRoutes);
 
 connectDB();

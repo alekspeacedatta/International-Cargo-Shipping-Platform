@@ -5,26 +5,26 @@ import { Input } from "./commons/Input";
 import { useNavigate } from "react-router-dom";
 import { useEditUser } from "../customHooks/useEditUser";
 import { type Address, type User } from "../types/types";
+import { useUIState } from "../stores/useUIStore";
+
 
 const Profile = () => {
     const navigate = useNavigate();
     const user = useAuthStore(state => state.user);
-    const { mutate: updateUser  } = useEditUser();
+    const isSlided = useUIState(state => state.isSlided)
+    const profileZIndex = useUIState(state => state.profileZIndex)
+    const { mutate: updateUser, error: err} = useEditUser();
+    const [error, setError] = useState<boolean | null>(null)
+
     const [editedData, setEditedData] = useState<Omit<User, 'password'> & { newPassword?: string }>({
         ...user,
         newPassword: ''
     });
     const logout = useAuthStore(state => state.logout);
 
-    useEffect(() => {
-        if (user) {
-            setEditedData({...user});
-        }
-    }, [user]);
-    const handleLogout = () => {
-        logout();   
-        navigate('/user')
-    }
+    const handleLogout = () => { logout();navigate('/user') }
+    useEffect(() => { if (user) setEditedData({...user}); }, [user]);
+
     const updateAddressField = (index: number, field: keyof Address, value: string) => {
         const newAddresses = [...editedData.addresses];
         newAddresses[index] = {
@@ -36,13 +36,17 @@ const Profile = () => {
     const handleDataUpdate = (e: React.FormEvent) => {
         e.preventDefault();
         updateUser(editedData);
+        err ? setError(false) : setError(true)
+        setTimeout(() => {
+            setError(false);
+        }, 1500)
     };
 
     if(user) return (        
-        <>
-            
-                    <form className="profile-info" onSubmit={handleDataUpdate}>
+        <>        
+                    <form className="profile-info" onSubmit={handleDataUpdate} style={{ marginLeft: `${isSlided}px`, zIndex: profileZIndex, boxShadow: profileZIndex === 1 ? 'rgba(0, 0, 0, 0.26) 0px 1px 4px' : 'none'}} >
                         <h2>Hello {editedData.fullName}</h2>
+                        {error && ( <p  style={{ color: error ? 'green' : 'red' }}>{error ? 'data is saved' : 'data save error'}</p> )}
                         <section className="profile-info-details">
                             <section>
                                 <label htmlFor="">full name:</label>

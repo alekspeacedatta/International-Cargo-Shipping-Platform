@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom';
 import ClientSide from './pages/ClientSide';
+import "virtual:windi.css"
 
 const queryClient = new QueryClient();
 

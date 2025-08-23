@@ -1,6 +1,6 @@
 :root{
-  --button-bc: #219ebc;
-  --buttin-bc-fade: #1e8da8;
+  --button-bc: #a594f9;
+  --buttin-bc-fade: #8d84bd;
   --logout-button-hover-color: #953434;
 }
 *{
@@ -9,7 +9,7 @@
   padding: 0;
 }
 input:focus, input:hover{
-  border-color: #1e8da8;
+  border-color: #8d84bd;
   transform: translateY(-1px);
 }
 button:hover{
@@ -18,16 +18,20 @@ button:hover{
 }
 header{
   .header-content{
-    padding: 10px 0px;
-    max-width: 65vw;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     a{
-      color: #219ebc;
+      color: #a594f9;
       text-decoration: none;
       transition: transform .2s;
+      i{
+        font-size: 30px;
+      }
+    }
+    button{
+      background-color: transparent;
+      color: var(--button-bc);
+      border: 2px solid var(--button-bc);
+      font-weight: bold;
+      padding: 4px 10px;
     }
     a:hover{
       transform: translateY(-1px);
@@ -89,26 +93,43 @@ header{
   padding-top: 60px;
   .dashboard-content{
     display: flex;
-    justify-content: space-between;
-    max-width: 85vw;
+    justify-content: center;
+    max-width: 90vw;
     margin: 0 auto;
     gap: 10px;
     .parcel-request{
       border-radius: 10px;
       box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px; 
-      width: 68%;
+      
+      width: 70%;
+      transition: margin-right 0.4s ease-in-out;
+      background-color: white;
       .parcel-request-content{
         padding: 20px;
-
+        section{
+          section{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            button{
+              background-color: transparent;
+              
+            }
+            button:hover{
+              background-color: var(--button-bc);
+            }
+          }
+        }
       }
     }
     .profile-info{
-      box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px; 
       border-radius: 10px;
       width: max-content;
       padding: 20px;
       display: flex;
+      justify-content: space-between;
       flex-direction: column;
+      transition: margin-left 0.4s ease-in-out;
       gap: 25px;
       .profile-info-details{
         display: flex;
@@ -120,7 +141,7 @@ header{
           input{
             background-color: #eaeaea;
             padding: 6px 5px;
-            width: 11vw;
+            width: 7vw;
             border-color: #eaeaea;
           }
         }
@@ -165,4 +186,10 @@ header{
       }
     }
   }
+}
+i{
+  transform: transform .3s ease;
+}
+i:hover{
+  transform: translateY(-2px);
 }

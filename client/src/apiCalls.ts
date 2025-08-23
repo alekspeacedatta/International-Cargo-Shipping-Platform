@@ -2,7 +2,7 @@ import { type Address, type User, type Role } from "./types/types";
 const BASE_URL = 'http://localhost:5000';
 export const register = async ( fullName: string, email: string, password: string, phone: string, addresses: Address[], role: string) => {
     try {
-        const res = await fetch(`${BASE_URL}/api/auth/register/user`, {
+        const res = await fetch(`${BASE_URL}/api/auth/client/register`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -23,7 +23,7 @@ export const register = async ( fullName: string, email: string, password: strin
 }
 export const login = async ( email: string, password: string ) => {
     try {
-        const res = await fetch(`${BASE_URL}/api/auth/login/user`, {
+        const res = await fetch(`${BASE_URL}/api/auth/client/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ export const editUser = async ( fullName: string,  email: string,  newPassword: 
   try {
     const updateData: any = { email: email, fullName: fullName, phone: phone, addresses: addresses, role: role };
     if (newPassword && newPassword.trim() !== '') updateData.password = newPassword;
-    const res = await fetch(`${BASE_URL}/api/user/edit/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/client/edit/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

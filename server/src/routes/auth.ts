@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { authenticateJWT } from '../middleware';
 const router = Router();
 
-router.post('/register/user', async (req: Request, res: Response) => {
+router.post('/client/register', async (req: Request, res: Response) => {
     try {
         const { email, password, fullName, phone, addresses, role } = req.body;
 
@@ -28,7 +28,7 @@ router.post('/register/user', async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error Registering User', error })   
     }
 })
-router.post('/login/user', async (req: Request, res: Response) => {
+router.post('/client/login', async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
         const checkUser = await UserModel.findOne({ email });
