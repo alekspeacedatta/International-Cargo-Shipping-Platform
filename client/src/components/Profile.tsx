@@ -11,8 +11,9 @@ import { useUIState } from "../stores/useUIStore";
 const Profile = () => {
     const navigate = useNavigate();
     const user = useAuthStore(state => state.user);
-    const isSlided = useUIState(state => state.isSlided)
-    const profileZIndex = useUIState(state => state.profileZIndex)
+    const isSlided = useUIState(state => state.isSlided);
+    const profileZIndex = useUIState(state => state.profileZIndex);
+    const boxShadow = useUIState(state => state.boxShadow);
     const { mutate: updateUser, error: err} = useEditUser();
     const [error, setError] = useState<boolean | null>(null)
 
@@ -44,7 +45,7 @@ const Profile = () => {
 
     if(user) return (        
         <>        
-                    <form className="profile-info" onSubmit={handleDataUpdate} style={{ marginLeft: `${isSlided}px`, zIndex: profileZIndex, boxShadow: profileZIndex === 1 ? 'rgba(0, 0, 0, 0.26) 0px 1px 4px' : 'none'}} >
+                    <form className="profile-info" onSubmit={handleDataUpdate} style={{ marginLeft: `${isSlided}px`, zIndex: profileZIndex, boxShadow: boxShadow}} >
                         <h2>Hello {editedData.fullName}</h2>
                         {error && ( <p  style={{ color: error ? 'green' : 'red' }}>{error ? 'data is saved' : 'data save error'}</p> )}
                         <section className="profile-info-details">
